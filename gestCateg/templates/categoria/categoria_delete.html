@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% block title %} Borrar Mascota {% endblock %}
+{% block content %}
+
+<div class="alert alert-danger" role="alert">
+  <h4 class="text-center alert-heading">ELIMINAR CATEGORIA</h4>
+  <p class= "text-center">Se eliminará la categoría seleccionada por el administrador </p>
+</div>
+<form method="post">
+	{% csrf_token %}
+	<h3>Desea eliminar la categoría cuyo id es: {{ object.id}} y de nombre: {{ object.nombre }}?</h3>
+	<button class="btn btn-danger" type="submit">Eliminar</button>
+	<a class="btn btn-default" href="{% url 'categoria:categoria_listar' %}">Cancelar</a>
+	
+</form>
+{% endblock %}

@@ -1,34 +1,38 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="{% static 'css/creative.min.css' %}">
-	<title>List</title>
-</head>
-<body>
-	<div>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Categoria</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Nueva categoria<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Editar categoria</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Eliminar</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-	</div>
-	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="{% static 'js/creative.min.js' %}"></script>
-</body>
-</html>
+{% extends 'base/base.html' %}
+{% block content %}
+
+<div class="alert alert-success" role="alert">
+  <h4 class="text-center alert-heading">LISTADO DE CATEGORIAS</h4>
+  <p class="text-center">Esta es una lista de las categorias existentes en nuestro sistema</p>
+</div>
+ <a class="btn btn-info btn-block" href="{% url 'categoria:categoria_crear' %}">Agregar categoría</a>
+<hr>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th class="text-center">Id</th>
+      <th class="text-center">Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if object_list %}
+    {% for categoria in object_list %}
+    <tr>
+      <td class="text-center">{{ categoria.id }}</td>
+      <td class="text-center">{{ categoria.nombre }}</td>
+      <td class="text-center">
+        <a class="btn btn-primary" href="{% url 'categoria:categoria_editar' categoria.id %}">Modificar</a>
+      </td>
+      <td class="text-center">
+        <a class="btn btn-danger" href="{% url 'categoria:categoria_eliminar' categoria.id %}">Eliminar</a>
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h2>NO HAY REGISTROS DE Categoria!!!</h2>
+    {% endif %}
+
+  </tbody>
+</table>
+
+{% endblock %}
